@@ -17,14 +17,14 @@ class QuantumCrypto:
 
     def encrypt(self, message, key):
         encrypted_message = ""
-        for i in range(len(message)):
-            encrypted_message += chr(ord(message[i]) ^ ord(key[i % self.key_size]))
+        for i, item in enumerate(message):
+            encrypted_message += chr(ord(item) ^ ord(key[i % self.key_size]))
         return encrypted_message
 
     def decrypt(self, encrypted_message, key):
         decrypted_message = ""
-        for i in range(len(encrypted_message)):
-            decrypted_message += chr(ord(encrypted_message[i]) ^ ord(key[i % self.key_size]))
+        for i, item in enumerate(encrypted_message):
+            decrypted_message += chr(ord(item) ^ ord(key[i % self.key_size]))
         return decrypted_message
 
 # Example usage
