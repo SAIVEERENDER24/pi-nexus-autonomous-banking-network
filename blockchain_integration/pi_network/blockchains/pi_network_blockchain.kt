@@ -32,7 +32,7 @@ class Block(
     val timestamp: Date,
     val transactions: MutableList<Transaction>,
     val hash: String,
-    val prevHash: String
+    val prevHash: String,
 ) {
     // Implement Block class
 }
@@ -40,7 +40,7 @@ class Block(
 class Transaction(
     val sender: String,
     val recipient: String,
-    val amount: Double
+    val amount: Double,
 ) {
     // Implement Transaction class
 }
