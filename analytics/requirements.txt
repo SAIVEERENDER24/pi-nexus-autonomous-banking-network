@@ -6,3 +6,4 @@ keras
 seaborn
 matplotlib
 plotly
+setuptools>=78.1.1 # not directly required, pinned by Snyk to avoid a vulnerability
