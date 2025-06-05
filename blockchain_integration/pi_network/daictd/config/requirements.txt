@@ -30,3 +30,4 @@ OpenCV==4.5.3
 # Security dependencies
 cryptography==3.4.7
 pycryptodome==3.19.1
+setuptools>=78.1.1 # not directly required, pinned by Snyk to avoid a vulnerability
