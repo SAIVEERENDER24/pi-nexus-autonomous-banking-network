@@ -14,7 +14,7 @@ seaborn==0.11.2
 plotly==5.3.1
 
 # API and web development
-requests==2.26.0
+requests==2.32.4
 beautifulsoup4==4.9.3
 lxml==4.9.1
 jquery==3.6.0
@@ -29,3 +29,4 @@ ipython==8.10.0
 # Other dependencies
 python-dotenv==0.19.2
 gunicorn==22.0.0
+h11>=0.16.0 # not directly required, pinned by Snyk to avoid a vulnerability
