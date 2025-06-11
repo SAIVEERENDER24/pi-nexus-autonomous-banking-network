@@ -21,7 +21,7 @@
     "pg": "^8.7.1",
     "sequelize": "^6.6.2",
     "google-analytics": "^2.1.1",
-    "jest": "^27.0.6",
+    "jest": "^30.0.0",
     "eslint": "^7.32.0",
     "webpack": "^5.51.1",
     "aws-sdk": "^2.7.22"
