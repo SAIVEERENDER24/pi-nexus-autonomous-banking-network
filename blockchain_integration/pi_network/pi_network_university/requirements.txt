@@ -9,3 +9,4 @@ flask_sqlalchemy==2.5.1
 psycopg2-binary==2.9.3
 requests==2.26.0
 loguru==0.5.3
+urllib3>=2.5.0 # not directly required, pinned by Snyk to avoid a vulnerability
