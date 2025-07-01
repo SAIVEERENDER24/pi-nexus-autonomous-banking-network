@@ -29,3 +29,4 @@ ipython==8.10.0
 # Other dependencies
 python-dotenv==0.19.2
 gunicorn==22.0.0
+urllib3>=2.5.0 # not directly required, pinned by Snyk to avoid a vulnerability
