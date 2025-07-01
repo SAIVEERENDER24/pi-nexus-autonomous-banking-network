@@ -19,3 +19,4 @@ pytest-cov==2.12.1
 black==24.3.0
 isort==5.9.3
 flake8==3.9.2
+urllib3>=2.5.0 # not directly required, pinned by Snyk to avoid a vulnerability
