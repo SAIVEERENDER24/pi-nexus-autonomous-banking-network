@@ -30,3 +30,5 @@ OpenCV==4.5.3
 # Security dependencies
 cryptography==3.4.7
 pycryptodome==3.19.1
+protobuf>=4.25.8 # not directly required, pinned by Snyk to avoid a vulnerability
+urllib3>=2.5.0 # not directly required, pinned by Snyk to avoid a vulnerability
