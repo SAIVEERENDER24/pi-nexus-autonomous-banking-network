@@ -12,6 +12,6 @@
   "license": "MIT",
   "dependencies": {
     "parcel": "^2.4.1",
-    "web3": "^1.5.2"
+    "web3": "^4.0.1"
   }
 }
