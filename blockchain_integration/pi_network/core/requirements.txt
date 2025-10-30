@@ -1,4 +1,6 @@
 # requirements.txt
 python==3.9.5
-flask==2.0.1
+flask==2.2.5
 requests==2.25.1
+werkzeug>=3.0.6 # not directly required, pinned by Snyk to avoid a vulnerability
+zipp>=3.19.1 # not directly required, pinned by Snyk to avoid a vulnerability
