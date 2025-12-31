@@ -5,6 +5,13 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "type": "java",
+      "name": "TransactionProcessor",
+      "request": "launch",
+      "mainClass": "TransactionProcessor",
+      "projectName": "pi-nexus-autonomous-banking-network-1_3a268008"
+    },
+    {
       "name": "Python Debugger: Current File",
       "type": "debugpy",
       "request": "launch",
@@ -15,8 +22,12 @@
       "name": "Debugger for Mainframe: INTERTEST™ FOR BATCH",
       "type": "intertest-batch",
       "request": "launch",
-      "programName": ["PROGRAMNM"],
-      "protsym": ["PROTSYM"],
+      "programName": [
+        "PROGRAMNM"
+      ],
+      "protsym": [
+        "PROTSYM"
+      ],
       "host": "HOST",
       "port": 0,
       "interTestUserName": "USER",

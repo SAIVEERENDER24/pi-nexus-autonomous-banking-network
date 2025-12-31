@@ -7,18 +7,20 @@ class GDPRCompliance {
     }
 
     // Method to collect user data
-    collectUser Data(userId, data) {
-        if (!this.consentRecords.get(userId)) {
-            throw new Error("User  consent not given.");
+    collectUserData(userId, data) {
+        if (!this.checkConsent(userId)) {
+            throw new Error("User consent not given.");
         }
         this.userData.set(userId, data);
-        console.log(`User  data collected for ${userId}`);
+        console.log(`User data collected for ${userId}`);
+        this.logComplianceAction("DATA_COLLECTED", userId);
     }
 
     // Method to record user consent
     recordConsent(userId, consent) {
-        this.consentRecords.set(userId, consent);
+        this.consentRecords.set(userId, Boolean(consent));
         console.log(`Consent recorded for ${userId}: ${consent}`);
+        this.logComplianceAction("CONSENT_RECORDED", userId);
     }
 
     // Method to check user consent
@@ -31,6 +33,7 @@ class GDPRCompliance {
         if (!this.userData.has(userId)) {
             throw new Error("No data found for this user.");
         }
+        this.logComplianceAction("DATA_ACCESS_REQUEST", userId);
         return this.userData.get(userId);
     }
 
@@ -40,6 +43,7 @@ class GDPRCompliance {
             this.userData.delete(userId);
             this.consentRecords.delete(userId);
             console.log(`Data deleted for ${userId}`);
+            this.logComplianceAction("DATA_DELETION_REQUEST", userId);
         } else {
             throw new Error("No data found for this user.");
         }
@@ -55,12 +59,12 @@ class GDPRCompliance {
 const gdpr = new GDPRCompliance();
 
 // User consent management
-const userId = 'user123';
+const userId = "user123";
 gdpr.recordConsent(userId, true);
 
 // Collect user data
 try {
-    gdpr.collectUser Data(userId, { name: "John Doe", email: "john.doe@example.com" });
+    gdpr.collectUserData(userId, { name: "John Doe", email: "john.doe@example.com" });
 } catch (error) {
     console.error(error.message);
 }
@@ -68,7 +72,7 @@ try {
 // Handle data access request
 try {
     const userData = gdpr.handleDataAccessRequest(userId);
-    console.log("User  Data:", userData);
+    console.log("User Data:", userData);
 } catch (error) {
     console.error(error.message);
 }
@@ -78,4 +82,4 @@ try {
     gdpr.handleDataDeletionRequest(userId);
 } catch (error) {
     console.error(error.message);
-                     }
+}

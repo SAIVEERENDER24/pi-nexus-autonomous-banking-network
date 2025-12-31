@@ -1,11 +1,5 @@
 package main
 
-import (
-	"bytes"
-	"crypto/sha256"
-	"fmt"
-)
-
 type Blockchain struct {
 	Blocks []*Block
 }
@@ -35,7 +29,10 @@ func (bc *Blockchain) IsValid() bool {
 	return true
 }
 
-func GetBlock(index int) *Block {
-	bc := NewBlockchain()
+// GetBlock returns the block at index or nil if out of range.
+func (bc *Blockchain) GetBlock(index int) *Block {
+	if index < 0 || index >= len(bc.Blocks) {
+		return nil
+	}
 	return bc.Blocks[index]
 }

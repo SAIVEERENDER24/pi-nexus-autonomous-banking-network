@@ -28,8 +28,14 @@ func NewBlock(index int, data string, prevHash string) *Block {
 }
 
 func (b *Block) CalculateHash() string {
-	data := fmt.Sprintf("%d%s%s%s", b.Index, b.Timestamp, b.Data, b.PrevHash)
-	hash := sha256.Sum256([]byte(data))
+	data := bytes.Join([][]byte{
+		[]byte(strconv.Itoa(b.Index)),
+		[]byte(b.Timestamp),
+		[]byte(b.Data),
+		[]byte(b.PrevHash),
+	}, []byte{})
+
+	hash := sha256.Sum256(data)
 	return fmt.Sprintf("%x", hash)
 }
 

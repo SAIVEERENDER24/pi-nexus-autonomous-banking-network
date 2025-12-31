@@ -2,9 +2,8 @@ package sssc
 
 import (
 	"context"
-	"fmt"
 	"log"
-	"sync"
+	"net"
 
 	"github.com/KOSASIH/pi-nexus-autonomous-banking-network/consensus/sssc/pb"
 	"google.golang.org/grpc"
