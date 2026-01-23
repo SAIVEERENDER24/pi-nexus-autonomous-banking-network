@@ -4,7 +4,7 @@ module Api
     class SidraChainController < ApplicationController
       def index
         # Fetch Sidra Chain data using Sidra Chain API
-        sidra_chain_data = # ...
+        # ...
         render json: sidra_chain_data
       end
     end
