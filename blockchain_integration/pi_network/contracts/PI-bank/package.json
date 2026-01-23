@@ -16,7 +16,7 @@
   "dependencies": {
     "hardhat": "^2.8.3",
     "truffle": "^5.4.2",
-    "truffle-plugin-verify": "^0.5.4",
+    "truffle-plugin-verify": "^0.6.7",
     "chai": "^4.3.4",
     "chai-as-promised": "^7.1.1",
     "ethers": "^5.4.3",
