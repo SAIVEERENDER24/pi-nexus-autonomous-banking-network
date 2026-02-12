@@ -1,5 +1,5 @@
 # users/Dockerfile
-FROM python:3.9
+FROM python:3.14.1
 
 WORKDIR /app
 
