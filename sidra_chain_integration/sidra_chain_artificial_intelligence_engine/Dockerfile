@@ -1,5 +1,5 @@
 # Dockerfile
-FROM tensorflow/tensorflow:2.4.0-gpu
+FROM tensorflow/tensorflow:2.20.0rc0-gpu
 
 WORKDIR /app
 
