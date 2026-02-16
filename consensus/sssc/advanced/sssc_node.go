@@ -4,15 +4,17 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"net"
 	"sync"
 
 	"github.com/KOSASIH/pi-nexus-autonomous-banking-network/consensus/sssc/pb"
-	"google.golang.org/grpc"
 	"github.com/dgraph-io/badger"
+	"google.golang.org/grpc"
 )
 
 type SSSCNode struct {
 	pb.UnimplementedSSSCNodeServer
+	mu      sync.Mutex
 	shardID string
 	nodes   map[string]*grpc.ClientConn
 	db      *badger.DB
@@ -20,10 +22,13 @@ type SSSCNode struct {
 }
 
 func (n *SSSCNode) ProposeBlock(ctx context.Context, req *pb.ProposeBlockRequest) (*pb.ProposeBlockResponse, error) {
+	if req == nil || req.Block == nil || req.Block.Hash == "" {
+		return nil, fmt.Errorf("invalid propose block request")
+	}
+
 	// Store proposed block in database
 	err := n.db.Update(func(txn *badger.Txn) error {
-		err := txn.Set([]byte("proposed_block_"+req.Block.Hash().Hex()), []byte(req.Block.Marshal()))
-		return err
+		return txn.Set([]byte("proposed_block_"+req.Block.Hash), []byte(req.Block.Data))
 	})
 	if err != nil {
 		return nil, err
@@ -42,20 +47,29 @@ func (n *SSSCNode) ProposeBlock(ctx context.Context, req *pb.ProposeBlockRequest
 }
 
 func (n *SSSCNode) VoteBlock(ctx context.Context, req *pb.VoteBlockRequest) (*pb.VoteBlockResponse, error) {
+	if req == nil || req.Block == nil || req.Block.Hash == "" || req.Vote == "" {
+		return nil, fmt.Errorf("invalid vote request")
+	}
+
 	// Store vote in database
 	err := n.db.Update(func(txn *badger.Txn) error {
-		err := txn.Set([]byte("vote_"+req.Block.Hash().Hex()+"_"+req.Vote), []byte("true"))
-		return err
+		return txn.Set([]byte("vote_"+req.Block.Hash+"_"+req.Vote), []byte("true"))
 	})
 	if err != nil {
 		return nil, err
 	}
 
 	// Update vote count
-	n.votes[req.Block.Hash().Hex()][req.Vote] = true
+	n.mu.Lock()
+	if _, ok := n.votes[req.Block.Hash]; !ok {
+		n.votes[req.Block.Hash] = make(map[string]bool)
+	}
+	n.votes[req.Block.Hash][req.Vote] = true
+	committed := n.isCommitted(req.Block.Hash)
+	n.mu.Unlock()
 
 	// Check if block is committed
-	if n.isCommitted(req.Block.Hash().Hex()) {
+	if committed {
 		// Commit block to blockchain
 		err := n.commitBlock(req.Block)
 		if err != nil {
@@ -78,11 +92,10 @@ func (n *SSSCNode) isCommitted(blockHash string) bool {
 	return false
 }
 
-func (n *SSSCNode) commitBlock(block *types.Block) error {
+func (n *SSSCNode) commitBlock(block *pb.Block) error {
 	// Commit block to blockchain
 	err := n.db.Update(func(txn *badger.Txn) error {
-		err := txn.Set([]byte("block_"+block.Hash().Hex()), []byte(block.Marshal()))
-		return err
+		return txn.Set([]byte("block_"+block.Hash), []byte(block.Data))
 	})
 	if err != nil {
 		return err

@@ -1,30 +1,35 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import IdentityManager from './IdentityManager';
-import Home from './Home'; // Assuming you have a Home component
-import NotFound from './NotFound'; // A component for handling 404 errors
-import './App.css'; // Import your CSS file for styling
+const express = require('express')
+const bodyParser = require('body-parser')
+const cors = require('cors')
+const mongoose = require('mongoose')
 
-function App() {
-  return (
-    <Router>
-      <div className="app-container">
-        <header className="app-header">
-          <h1>Welcome to Pi Nexus</h1>
-        </header>
-        <main>
-          <Switch>
-            <Route path="/" exact component={Home} />
-            <Route path="/identity" component={IdentityManager} />
-            <Route component={NotFound} /> {/* Fallback for 404 */}
-          </Switch>
-        </main>
-        <footer className="app-footer">
-          <p>&copy; 2025 Pi Nexus. All rights reserved.</p>
-        </footer>
-      </div>
-    </Router>
-  );
+const { JWT_SECRET, MONGODB_URI } = process.env
+
+const app = express()
+
+app.use(bodyParser.json())
+app.use(cors())
+
+const router = require('./routes')
+app.use('/api', router)
+
+const connectToMongoDB = async () => {
+  try {
+    await mongoose.connect(MONGODB_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useCreateIndex: true
+    })
+    console.log('Connected to MongoDB')
+  } catch (error) {
+    console.error('Failed to connect to MongoDB', error)
+    process.exit(1)
+  }
 }
 
-export default App;
+connectToMongoDB()
+
+const PORT = process.env.PORT || 5000
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`)
+})
