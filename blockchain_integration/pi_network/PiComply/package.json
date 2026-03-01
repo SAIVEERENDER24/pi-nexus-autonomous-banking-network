@@ -24,7 +24,7 @@
   "dependencies": {
     "aws-sdk": "^2.7.22",
     "eslint": "^10.0.0",
-    "jest": "^27.0.0",
+    "jest": "^28.0.0",
     "webpack": "^5.10.0",
     "babel-loader": "^9.0.0",
     "react": "^17.0.2",
