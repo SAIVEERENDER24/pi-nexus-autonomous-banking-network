@@ -1,5 +1,4 @@
 import hashlib
-import hmac
 from bitcoinlib.keys import HDKey
 from ethereum import utils
 
@@ -31,4 +30,3 @@ def generate_private_key():
 def derive_hd_key(private_key):
     # Derive an HD key from the private key
     hd_key = HDKey(private_key)
-return hd_key
