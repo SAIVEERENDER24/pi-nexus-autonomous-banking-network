@@ -1,7 +1,7 @@
 # requirements.txt
 
 # Cryptography libraries
-cryptography==3.4.7
+cryptography==46.0.5
 pycryptodome==3.19.1
 
 # Math and science libraries
