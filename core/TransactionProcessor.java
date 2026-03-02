@@ -30,10 +30,6 @@ public class TransactionProcessor {
 }
 
 class Transaction {
-    private String cardNumber;
-    private int amount;
-    private String country;
-    private String cardType;
 
     // getters and setters
 }
