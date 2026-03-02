@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BlockchainTransaction {
-    private String transactionId;
     private String sender;
     private String recipient;
     private double amount;
