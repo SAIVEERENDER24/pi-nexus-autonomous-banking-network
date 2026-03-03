@@ -1,4 +1,4 @@
-FROM nginx:alpine
+FROM nginx:1.29.5-alpine3.23
 
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY api-gateway.py /app/api-gateway.py
